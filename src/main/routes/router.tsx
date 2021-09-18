@@ -1,9 +1,13 @@
-import { Loading, Start } from 'presentation/pages'
+import { QUESTION_PAGE, START_PAGE } from 'config/constants'
+import { Loading, Question, Start } from 'presentation/pages'
 import React, { FC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { useFetchQuestionsQuery } from 'services'
-import { saveDifficultiesAction, useAppDispatch } from 'store'
-import { saveQuestionsAction } from 'store/reducers'
+import {
+  saveDifficultiesAction,
+  saveQuestionsAction,
+  useAppDispatch
+} from 'store'
 
 const Router: FC = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +25,12 @@ const Router: FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={isLoading ? Loading : Start} />
+        <Route
+          path={START_PAGE}
+          exact
+          component={isLoading ? Loading : Start}
+        />
+        <Route path={QUESTION_PAGE} component={Question} />
       </Switch>
     </BrowserRouter>
   )

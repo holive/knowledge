@@ -1,14 +1,23 @@
+import { QUESTION_PAGE } from 'config/constants'
 import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from 'store'
-import { saveUserInfoAction } from 'store/reducers'
+import { useHistory } from 'react-router-dom'
+import {
+  saveCurrentRoundQuestionsAction,
+  saveUserInfoAction,
+  useAppDispatch,
+  useAppSelector
+} from 'store'
 
 export const Start: React.FC = () => {
+  const history = useHistory()
   const dispatch = useAppDispatch()
   const { difficulty } = useAppSelector((state) => state.questions)
   const { questionsPerRound } = useAppSelector((state) => state.user.value)
 
   const [name, setName] = useState('')
-  const [level, setLevel] = useState('')
+  const [level, setLevel] = useState<string>(
+    () => (difficulty.length && difficulty[0]) || ''
+  )
   const [numberOfQuestions, setNumberOfQuestions] = useState(
     () => questionsPerRound
   )
@@ -23,6 +32,9 @@ export const Start: React.FC = () => {
         questionsPerRound: numberOfQuestions
       })
     )
+    dispatch(saveCurrentRoundQuestionsAction(level))
+
+    history.replace(QUESTION_PAGE)
   }
 
   return (
@@ -71,7 +83,9 @@ export const Start: React.FC = () => {
       <br />
       <br />
 
-      <button onClick={handleSaveUserInfo}>Start the Game :)</button>
+      {name ? (
+        <button onClick={handleSaveUserInfo}>Start the Game :)</button>
+      ) : null}
     </>
   )
 }
