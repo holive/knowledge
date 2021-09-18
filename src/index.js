@@ -1,5 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './client/App';
+import 'presentation/styles/globals.scss'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Router from 'main/routes/router'
+import React, { StrictMode } from 'react'
+import ReactDOM from 'react-dom'
+
+ReactDOM.render(
+  <StrictMode>
+    <Router />
+  </StrictMode>,
+  document.getElementById('root')
+)
