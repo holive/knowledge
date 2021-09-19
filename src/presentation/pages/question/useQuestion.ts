@@ -1,14 +1,17 @@
 import { decode } from 'html-entities'
 import { useAppSelector } from 'store'
 
-export const UseQuestion = (): {
+interface Model {
   title: string
   subtitle: string
   correctAnswer: string
   type: string
   incorrectAnswers?: string[]
-} => {
+}
+
+export const UseQuestion = (): Model | null => {
   const { currentRoundQuestions } = useAppSelector((state) => state.questions)
+  if (!currentRoundQuestions.length) return null
 
   const current = currentRoundQuestions[0]
   const title = decode(current.question)

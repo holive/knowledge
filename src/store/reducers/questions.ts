@@ -5,13 +5,20 @@ import { shuffle } from 'utils'
 interface QuestionsState {
   questions: QuestionModel[]
   currentRoundQuestions: QuestionStateModel[]
-  difficulty: string[]
+  difficulties: string[]
+  currentRoundResults: boolean[]
+}
+
+interface CurrentRoundQuestionAction {
+  level: string
+  shouldShuffle?: boolean
 }
 
 const initialState: QuestionsState = {
   questions: [],
-  difficulty: [],
-  currentRoundQuestions: []
+  difficulties: [],
+  currentRoundQuestions: [],
+  currentRoundResults: []
 }
 
 const questionsSlice = createSlice({
@@ -24,18 +31,31 @@ const questionsSlice = createSlice({
     saveDifficultiesAction(state, action: PayloadAction<QuestionModel[]>) {
       const options: Record<string, null> = {}
       action.payload.map((question) => (options[question.difficulty] = null))
-      state.difficulty = Object.keys(options).map((item) => item)
+      state.difficulties = Object.keys(options).map((item) => item)
     },
-    saveCurrentRoundQuestionsAction(state, action: PayloadAction<string>) {
-      const result = shuffle(
-        state.questions.filter((item) => item.difficulty === action.payload)
+    saveCurrentRoundQuestionsAction(
+      state,
+      action: PayloadAction<CurrentRoundQuestionAction>
+    ) {
+      let result = state.questions.filter(
+        (item) => item.difficulty === action.payload.level
       )
+      if (action.payload.shouldShuffle) result = shuffle(result)
 
       state.currentRoundQuestions = result.map((item) => ({
         ...item,
         correctAnswer: item.correct_answer,
         incorrectAnswers: item.incorrect_answers
       }))
+    },
+    removeFirstQuestionFromCurrentRound(state) {
+      state.currentRoundQuestions.shift()
+    },
+    saveCurrentRoundResultsAction(state, action: PayloadAction<boolean>) {
+      state.currentRoundResults.push(action.payload)
+    },
+    resetCurrentRoundResultsAction(state) {
+      state.currentRoundResults = []
     }
   }
 })
@@ -44,5 +64,8 @@ export const questionsSliceReducer = questionsSlice.reducer
 export const {
   saveQuestionsAction,
   saveDifficultiesAction,
-  saveCurrentRoundQuestionsAction
+  saveCurrentRoundQuestionsAction,
+  saveCurrentRoundResultsAction,
+  resetCurrentRoundResultsAction,
+  removeFirstQuestionFromCurrentRound
 } = questionsSlice.actions

@@ -8,7 +8,7 @@ export const Start: React.FC = () => {
     setLevel,
     handleSaveUserInfo,
     name,
-    difficulty,
+    difficulties,
     numberOfQuestions,
     setNumberOfQuestions
   } = UseStart()
@@ -35,7 +35,7 @@ export const Start: React.FC = () => {
         id="level"
         onChange={(e) => setLevel(e.target.value)}
       >
-        {difficulty.map((value, i) => (
+        {difficulties.map((value, i) => (
           <option key={i} value={value}>
             {value}
           </option>

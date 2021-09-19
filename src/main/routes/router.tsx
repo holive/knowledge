@@ -1,4 +1,4 @@
-import { QUESTION_PAGE, START_PAGE } from 'config/constants'
+import { QUESTION_PAGE, START_PAGE } from 'main/config/constants'
 import { Loading, Question, Start } from 'presentation/pages'
 import React, { FC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'

@@ -1,4 +1,4 @@
-import { QUESTION_PAGE } from 'config/constants'
+import { QUESTION_PAGE } from 'main/config/constants'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
@@ -8,21 +8,23 @@ import {
   useAppSelector
 } from 'store'
 
-export const UseStart = (): {
+interface Model {
   handleSaveUserInfo: (e: React.MouseEvent<HTMLButtonElement>) => void
   setName: React.Dispatch<React.SetStateAction<string>>
   setLevel: React.Dispatch<React.SetStateAction<string>>
   name: string
-  difficulty: string[]
+  difficulties: string[]
   numberOfQuestions: number
   setNumberOfQuestions: React.Dispatch<React.SetStateAction<number>>
-} => {
+}
+
+export const UseStart = (): Model => {
   const history = useHistory()
   const dispatch = useAppDispatch()
-  const { difficulty } = useAppSelector((state) => state.questions)
+  const { difficulties } = useAppSelector((state) => state.questions)
   const [name, setName] = useState('')
   const [level, setLevel] = useState<string>(
-    () => (difficulty.length && difficulty[0]) || ''
+    () => (difficulties.length && difficulties[0]) || ''
   )
 
   const { questionsPerRound } = useAppSelector((state) => state.user.value)
@@ -39,7 +41,7 @@ export const UseStart = (): {
         questionsPerRound: numberOfQuestions
       })
     )
-    dispatch(saveCurrentRoundQuestionsAction(level))
+    dispatch(saveCurrentRoundQuestionsAction({ level, shouldShuffle: true }))
 
     history.replace(QUESTION_PAGE)
   }
@@ -54,7 +56,7 @@ export const UseStart = (): {
     setName,
     setLevel,
     name,
-    difficulty,
+    difficulties,
     numberOfQuestions,
     setNumberOfQuestions
   }

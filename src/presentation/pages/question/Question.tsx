@@ -1,4 +1,4 @@
-import { START_PAGE } from 'config/constants'
+import { START_PAGE } from 'main/config/constants'
 import { Loading } from 'presentation/pages'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -9,16 +9,11 @@ import { UseQuestion } from './useQuestion'
 
 export const Question: React.FC = () => {
   const history = useHistory()
-  const { currentRoundQuestions } = useAppSelector((state) => state.questions)
   const { name } = useAppSelector((state) => state.user.value)
+  if (!name) history.replace(START_PAGE)
+
   const question = UseQuestion()
-
-  if (!name) {
-    history.replace(START_PAGE)
-    return <Loading />
-  }
-
-  if (!currentRoundQuestions.length) return <Loading />
+  if (question === null) return <Loading />
 
   return (
     <div>
