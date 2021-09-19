@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { QuestionModel } from 'domain/models'
+import { QuestionModel, QuestionStateModel } from 'domain/models'
+import { shuffle } from 'utils'
 
 interface QuestionsState {
   questions: QuestionModel[]
-  currentRoundQuestions: QuestionModel[]
+  currentRoundQuestions: QuestionStateModel[]
   difficulty: string[]
 }
 
@@ -11,13 +12,6 @@ const initialState: QuestionsState = {
   questions: [],
   difficulty: [],
   currentRoundQuestions: []
-}
-
-const shuffle = (data: QuestionModel[]): QuestionModel[] => {
-  return data
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
 }
 
 const questionsSlice = createSlice({
@@ -33,9 +27,15 @@ const questionsSlice = createSlice({
       state.difficulty = Object.keys(options).map((item) => item)
     },
     saveCurrentRoundQuestionsAction(state, action: PayloadAction<string>) {
-      state.currentRoundQuestions = shuffle(
+      const result = shuffle(
         state.questions.filter((item) => item.difficulty === action.payload)
       )
+
+      state.currentRoundQuestions = result.map((item) => ({
+        ...item,
+        correctAnswer: item.correct_answer,
+        incorrectAnswers: item.incorrect_answers
+      }))
     }
   }
 })

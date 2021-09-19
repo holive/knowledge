@@ -8,7 +8,7 @@ interface UserState {
 
 const initialState: { value: UserState } = {
   value: {
-    name: 'user',
+    name: '',
     currentRoundDifficulty: '',
     questionsPerRound: 4
   }

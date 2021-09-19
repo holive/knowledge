@@ -1,41 +1,17 @@
-import { QUESTION_PAGE } from 'config/constants'
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import {
-  saveCurrentRoundQuestionsAction,
-  saveUserInfoAction,
-  useAppDispatch,
-  useAppSelector
-} from 'store'
+import React from 'react'
+
+import { UseStart } from './useStart'
 
 export const Start: React.FC = () => {
-  const history = useHistory()
-  const dispatch = useAppDispatch()
-  const { difficulty } = useAppSelector((state) => state.questions)
-  const { questionsPerRound } = useAppSelector((state) => state.user.value)
-
-  const [name, setName] = useState('')
-  const [level, setLevel] = useState<string>(
-    () => (difficulty.length && difficulty[0]) || ''
-  )
-  const [numberOfQuestions, setNumberOfQuestions] = useState(
-    () => questionsPerRound
-  )
-
-  const handleSaveUserInfo = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault()
-
-    dispatch(
-      saveUserInfoAction({
-        name,
-        currentRoundDifficulty: level,
-        questionsPerRound: numberOfQuestions
-      })
-    )
-    dispatch(saveCurrentRoundQuestionsAction(level))
-
-    history.replace(QUESTION_PAGE)
-  }
+  const {
+    setName,
+    setLevel,
+    handleSaveUserInfo,
+    name,
+    difficulty,
+    numberOfQuestions,
+    setNumberOfQuestions
+  } = UseStart()
 
   return (
     <>
