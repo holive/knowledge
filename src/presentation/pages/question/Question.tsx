@@ -7,7 +7,7 @@ import { useAppSelector } from 'store'
 import { Sections } from './components'
 import { UseQuestion } from './useQuestion'
 
-export const Question: React.FC = () => {
+export const Question = (): JSX.Element => {
   const history = useHistory()
   const { name } = useAppSelector((state) => state.user.value)
 

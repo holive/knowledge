@@ -6,7 +6,7 @@ export const getScore = (
   correct: number,
   currentRoundResults: boolean[]
 ): string => {
-  return ((correct / currentRoundResults.length) * 100).toFixed()
+  return ((correct / currentRoundResults.length || 0) * 100).toFixed() ?? ''
 }
 
 export const formatDate = (date: string): string => {

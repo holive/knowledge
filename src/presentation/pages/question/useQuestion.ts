@@ -1,8 +1,13 @@
 import { decode } from 'html-entities'
 import { RESULT_PAGE } from 'main/config/constants'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { saveResultsHistoryAction, useAppDispatch, useAppSelector } from 'store'
+import {
+  resetCurrentRoundResultsAction,
+  saveResultsHistoryAction,
+  useAppDispatch,
+  useAppSelector
+} from 'store'
 
 import { getCorrectAnswers, getScore } from '../utils'
 
@@ -30,6 +35,10 @@ export const UseQuestion = (): (Model & QuestionAttr) | null => {
   const [questionsAnswered, _setQuestionsAnswered] = useState(0)
   const history = useHistory()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(resetCurrentRoundResultsAction())
+  }, [])
 
   const savePlayerResult = (isAnswerRight: boolean): void => {
     const finalRoundResult = [...currentRoundResults, isAnswerRight]

@@ -1,34 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { QuestionModel, QuestionStateModel } from 'domain/models'
+import { QuestionModel } from 'domain/models'
 import { shuffle } from 'utils'
 
-interface ResultHistoryState {
-  name: string
-  score: string
-  date: string
-  level: string
-}
-
-interface QuestionsState {
-  questions: QuestionModel[]
-  currentRoundQuestions: QuestionStateModel[]
-  difficulties: string[]
-  currentRoundResults: boolean[]
-  resultsHistory: ResultHistoryState[]
-}
-
-interface CurrentRoundQuestionAction {
-  level: string
-  shouldShuffle?: boolean
-}
-
-const initialState: QuestionsState = {
-  questions: [],
-  difficulties: [],
-  currentRoundQuestions: [],
-  currentRoundResults: [],
-  resultsHistory: []
-}
+import {
+  CurrentRoundQuestionAction,
+  initialState,
+  ResultHistoryState
+} from './types'
 
 const questionsSlice = createSlice({
   name: 'questions',
@@ -66,6 +44,19 @@ const questionsSlice = createSlice({
     },
     saveResultsHistoryAction(state, action: PayloadAction<ResultHistoryState>) {
       state.resultsHistory.push(action.payload)
+
+      if (state.resultsHistory.length) {
+        localStorage.setItem(
+          'resultsHistory',
+          JSON.stringify(state.resultsHistory)
+        )
+      }
+    },
+    loadHistoryFromStorageAction(
+      state,
+      action: PayloadAction<ResultHistoryState[]>
+    ) {
+      state.resultsHistory = action.payload
     }
   }
 })
@@ -77,5 +68,6 @@ export const {
   saveCurrentRoundQuestionsAction,
   saveCurrentRoundResultsAction,
   resetCurrentRoundResultsAction,
-  saveResultsHistoryAction
+  saveResultsHistoryAction,
+  loadHistoryFromStorageAction
 } = questionsSlice.actions
