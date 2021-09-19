@@ -1,7 +1,8 @@
 import { QUESTION_PAGE } from 'main/config/constants'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
+  resetCurrentRoundResultsAction,
   saveCurrentRoundQuestionsAction,
   saveUserInfoAction,
   useAppDispatch,
@@ -29,6 +30,10 @@ export const UseStart = (): Model => {
   const [level, setLevel] = useState<string>(
     () => (difficulties.length && difficulties[0]) || ''
   )
+
+  useEffect(() => {
+    dispatch(resetCurrentRoundResultsAction())
+  }, [])
 
   const [numberOfQuestions, setNumberOfQuestions] = useState(
     () => questionsPerRound

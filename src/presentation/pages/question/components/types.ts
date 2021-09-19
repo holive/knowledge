@@ -1,7 +1,7 @@
 export interface QuestionSectionParams {
   type: string
   correctAnswer: string
-  incrementQuestionsAnswered: () => void
+  incrementQuestionsAnswered: (isAnswerRight: boolean) => void
   incorrectAnswers?: string[]
 }
 

@@ -9,9 +9,12 @@ import { AnswersParams, NextButtonParams, QuestionSectionParams } from './types'
 export const Sections = (props: QuestionSectionParams): JSX.Element => {
   const dispatch = useAppDispatch()
 
-  const Next = ({ rightAnswer, callback }: NextButtonParams): JSX.Element => {
+  const GoNextButton = ({
+    rightAnswer,
+    callback
+  }: NextButtonParams): JSX.Element => {
     const goToTheNextQuestion = (): void => {
-      props.incrementQuestionsAnswered()
+      props.incrementQuestionsAnswered(rightAnswer)
       dispatch(saveCurrentRoundResultsAction(rightAnswer))
       callback?.()
     }
@@ -20,7 +23,7 @@ export const Sections = (props: QuestionSectionParams): JSX.Element => {
   }
 
   const args: AnswersParams = {
-    NextButton: Next,
+    NextButton: GoNextButton,
     correctAnswer: props.correctAnswer,
     answers: shuffle([props.correctAnswer, ...(props.incorrectAnswers ?? [])])
   }

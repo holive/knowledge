@@ -2,11 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { QuestionModel, QuestionStateModel } from 'domain/models'
 import { shuffle } from 'utils'
 
+interface ResultHistoryState {
+  name: string
+  score: string
+  date: string
+}
+
 interface QuestionsState {
   questions: QuestionModel[]
   currentRoundQuestions: QuestionStateModel[]
   difficulties: string[]
   currentRoundResults: boolean[]
+  resultsHistory: ResultHistoryState[]
 }
 
 interface CurrentRoundQuestionAction {
@@ -18,7 +25,8 @@ const initialState: QuestionsState = {
   questions: [],
   difficulties: [],
   currentRoundQuestions: [],
-  currentRoundResults: []
+  currentRoundResults: [],
+  resultsHistory: []
 }
 
 const questionsSlice = createSlice({
@@ -54,6 +62,9 @@ const questionsSlice = createSlice({
     },
     resetCurrentRoundResultsAction(state) {
       state.currentRoundResults = []
+    },
+    saveResultsHistoryAction(state, action: PayloadAction<ResultHistoryState>) {
+      state.resultsHistory.push(action.payload)
     }
   }
 })
@@ -64,5 +75,6 @@ export const {
   saveDifficultiesAction,
   saveCurrentRoundQuestionsAction,
   saveCurrentRoundResultsAction,
-  resetCurrentRoundResultsAction
+  resetCurrentRoundResultsAction,
+  saveResultsHistoryAction
 } = questionsSlice.actions
