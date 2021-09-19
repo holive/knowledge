@@ -24,7 +24,7 @@ export const UseQuestion = (): (Model & QuestionAttr) | null => {
     (state) => state.questions
   )
   if (!currentRoundQuestions.length) return null
-  const { questionsPerRound, name } = useAppSelector(
+  const { questionsPerRound, name, currentRoundDifficulty } = useAppSelector(
     (state) => state.user.value
   )
   const [questionsAnswered, _setQuestionsAnswered] = useState(0)
@@ -37,7 +37,8 @@ export const UseQuestion = (): (Model & QuestionAttr) | null => {
       saveResultsHistoryAction({
         name,
         date: new Date().toString(),
-        score: getScore(getCorrectAnswers(finalRoundResult), finalRoundResult)
+        score: getScore(getCorrectAnswers(finalRoundResult), finalRoundResult),
+        level: currentRoundDifficulty
       })
     )
   }

@@ -6,6 +6,7 @@ interface ResultHistoryState {
   name: string
   score: string
   date: string
+  level: string
 }
 
 interface QuestionsState {

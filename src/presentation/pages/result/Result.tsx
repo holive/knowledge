@@ -8,7 +8,9 @@ export const Result: React.FC = () => {
   const { currentRoundResults, resultsHistory } = useAppSelector(
     (state) => state.questions
   )
-  const { name } = useAppSelector((state) => state.user.value)
+  const { name, currentRoundDifficulty } = useAppSelector(
+    (state) => state.user.value
+  )
   const [successRate, setSuccessRate] = useState<string>()
   const [correctAnswers, setCorrectAnswers] = useState<number>()
 
@@ -17,6 +19,22 @@ export const Result: React.FC = () => {
     setSuccessRate(getScore(correct, currentRoundResults))
     setCorrectAnswers(correct)
   }, [])
+
+  const ScoreEntries = (): JSX.Element => {
+    return (
+      <>
+        {resultsHistory
+          .filter((item) => item.level === currentRoundDifficulty)
+          .map((item, i) => (
+            <tr key={i}>
+              <td>{item.name}</td>
+              <td>{formatDate(item.date)}</td>
+              <td>{item.score}%</td>
+            </tr>
+          ))}
+      </>
+    )
+  }
 
   if (successRate === undefined || correctAnswers === undefined)
     return <Loading />
@@ -43,13 +61,7 @@ export const Result: React.FC = () => {
           <th>Score</th>
         </tr>
 
-        {resultsHistory.map((item, i) => (
-          <tr key={i}>
-            <td>{item.name}</td>
-            <td>{formatDate(item.date)}</td>
-            <td>{item.score}%</td>
-          </tr>
-        ))}
+        <ScoreEntries />
       </table>
     </div>
   )
