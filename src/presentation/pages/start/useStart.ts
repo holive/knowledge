@@ -11,29 +11,31 @@ import {
 interface Model {
   handleSaveUserInfo: (e: React.MouseEvent<HTMLButtonElement>) => void
   setName: React.Dispatch<React.SetStateAction<string>>
+  level: string
   setLevel: React.Dispatch<React.SetStateAction<string>>
   name: string
   difficulties: string[]
   numberOfQuestions: number
   setNumberOfQuestions: React.Dispatch<React.SetStateAction<number>>
+  maxNumberOfQuestions: number
 }
 
 export const UseStart = (): Model => {
   const history = useHistory()
   const dispatch = useAppDispatch()
-  const { difficulties } = useAppSelector((state) => state.questions)
+  const { difficulties, questions } = useAppSelector((state) => state.questions)
+  const { questionsPerRound } = useAppSelector((state) => state.user.value)
   const [name, setName] = useState('')
   const [level, setLevel] = useState<string>(
     () => (difficulties.length && difficulties[0]) || ''
   )
 
-  const { questionsPerRound } = useAppSelector((state) => state.user.value)
-
   const [numberOfQuestions, setNumberOfQuestions] = useState(
     () => questionsPerRound
   )
 
-  const saveUserInfo = (): void => {
+  const handleSaveUserInfo = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault()
     dispatch(
       saveUserInfoAction({
         name,
@@ -46,18 +48,19 @@ export const UseStart = (): Model => {
     history.replace(QUESTION_PAGE)
   }
 
-  const handleSaveUserInfo = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault()
-    saveUserInfo()
-  }
+  const maxNumberOfQuestions = questions.filter(
+    (item) => item.difficulty === level
+  ).length
 
   return {
     handleSaveUserInfo,
     setName,
+    level,
     setLevel,
     name,
     difficulties,
     numberOfQuestions,
-    setNumberOfQuestions
+    setNumberOfQuestions,
+    maxNumberOfQuestions
   }
 }

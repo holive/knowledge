@@ -1,5 +1,5 @@
-import { QUESTION_PAGE, START_PAGE } from 'main/config/constants'
-import { Loading, Question, Start } from 'presentation/pages'
+import { QUESTION_PAGE, RESULT_PAGE, START_PAGE } from 'main/config/constants'
+import { Loading, Question, Result, Start } from 'presentation/pages'
 import React, { FC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { useFetchQuestionsQuery } from 'services'
@@ -31,6 +31,7 @@ const Router: FC = () => {
           component={isLoading ? Loading : Start}
         />
         <Route path={QUESTION_PAGE} component={Question} />
+        <Route path={RESULT_PAGE} component={Result} />
       </Switch>
     </BrowserRouter>
   )

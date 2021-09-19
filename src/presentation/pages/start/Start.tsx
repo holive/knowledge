@@ -10,7 +10,8 @@ export const Start: React.FC = () => {
     name,
     difficulties,
     numberOfQuestions,
-    setNumberOfQuestions
+    setNumberOfQuestions,
+    maxNumberOfQuestions
   } = UseStart()
 
   return (
@@ -52,6 +53,8 @@ export const Start: React.FC = () => {
         id="questionsPerRound"
         name="questionsPerRound"
         value={numberOfQuestions}
+        max={maxNumberOfQuestions}
+        min={1}
         onChange={(e) => setNumberOfQuestions(+e.target.value)}
       />
 

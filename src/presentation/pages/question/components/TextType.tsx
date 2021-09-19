@@ -6,6 +6,7 @@ import { AnswersParams } from './types'
 export const TextType = (Props: AnswersParams): JSX.Element => {
   const [answer, setAnswer] = useState('')
 
+  const resetInput = (): void => setAnswer('')
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void =>
     setAnswer(e.target.value)
 
@@ -24,6 +25,7 @@ export const TextType = (Props: AnswersParams): JSX.Element => {
       {answer !== '' && (
         <Props.NextButton
           rightAnswer={isTheRightAnswer(answer, Props.correctAnswer)}
+          callback={resetInput}
         />
       )}
     </>

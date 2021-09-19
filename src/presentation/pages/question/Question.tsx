@@ -1,5 +1,5 @@
 import { START_PAGE } from 'main/config/constants'
-import { Loading } from 'presentation/pages'
+import { Loading } from 'presentation/pages/components'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useAppSelector } from 'store'
@@ -10,6 +10,7 @@ import { UseQuestion } from './useQuestion'
 export const Question: React.FC = () => {
   const history = useHistory()
   const { name } = useAppSelector((state) => state.user.value)
+
   if (!name) history.replace(START_PAGE)
 
   const question = UseQuestion()
@@ -23,9 +24,10 @@ export const Question: React.FC = () => {
       <br />
 
       <Sections
+        type={question.type}
         correctAnswer={question.correctAnswer}
         incorrectAnswers={question.incorrectAnswers}
-        type={question.type}
+        incrementQuestionsAnswered={question.setQuestionsAnswered}
       />
     </div>
   )

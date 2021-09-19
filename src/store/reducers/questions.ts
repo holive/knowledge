@@ -48,11 +48,9 @@ const questionsSlice = createSlice({
         incorrectAnswers: item.incorrect_answers
       }))
     },
-    removeFirstQuestionFromCurrentRound(state) {
-      state.currentRoundQuestions.shift()
-    },
     saveCurrentRoundResultsAction(state, action: PayloadAction<boolean>) {
       state.currentRoundResults.push(action.payload)
+      state.currentRoundQuestions.shift()
     },
     resetCurrentRoundResultsAction(state) {
       state.currentRoundResults = []
@@ -66,6 +64,5 @@ export const {
   saveDifficultiesAction,
   saveCurrentRoundQuestionsAction,
   saveCurrentRoundResultsAction,
-  resetCurrentRoundResultsAction,
-  removeFirstQuestionFromCurrentRound
+  resetCurrentRoundResultsAction
 } = questionsSlice.actions

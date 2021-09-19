@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  removeFirstQuestionFromCurrentRound,
-  saveCurrentRoundResultsAction,
-  useAppDispatch
-} from 'store'
+import { saveCurrentRoundResultsAction, useAppDispatch } from 'store'
 import { shuffle } from 'utils'
 
 import { MultipleType } from './MultipleType'
@@ -13,10 +9,11 @@ import { AnswersParams, NextButtonParams, QuestionSectionParams } from './types'
 export const Sections = (props: QuestionSectionParams): JSX.Element => {
   const dispatch = useAppDispatch()
 
-  const Next = ({ rightAnswer }: NextButtonParams): JSX.Element => {
+  const Next = ({ rightAnswer, callback }: NextButtonParams): JSX.Element => {
     const goToTheNextQuestion = (): void => {
+      props.incrementQuestionsAnswered()
       dispatch(saveCurrentRoundResultsAction(rightAnswer))
-      dispatch(removeFirstQuestionFromCurrentRound())
+      callback?.()
     }
 
     return <button onClick={goToTheNextQuestion}>Next</button>

@@ -4,8 +4,9 @@ import { isTheRightAnswer } from './helpers'
 import { AnswersParams } from './types'
 
 export const MultipleType = (Props: AnswersParams): JSX.Element => {
-  const [selected, setSelected] = useState<string>()
+  const [selected, setSelected] = useState('')
 
+  const resetSelection = (): void => setSelected('')
   const handleClick = (e: React.MouseEvent): void =>
     setSelected((e.target as HTMLInputElement).value)
 
@@ -26,9 +27,10 @@ export const MultipleType = (Props: AnswersParams): JSX.Element => {
         </div>
       ))}
 
-      {selected !== undefined && (
+      {selected !== '' && (
         <Props.NextButton
           rightAnswer={isTheRightAnswer(selected, Props.correctAnswer)}
+          callback={resetSelection}
         />
       )}
     </>
