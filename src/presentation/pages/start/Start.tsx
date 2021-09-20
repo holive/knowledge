@@ -1,5 +1,6 @@
 import React from 'react'
 
+import styles from './Start.module.scss'
 import { UseStart } from './useStart'
 
 export const Start: React.FC = () => {
@@ -17,7 +18,11 @@ export const Start: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-800 font-mono">
       <div className="container mx-auto py-16 flex flex-col text-center">
-        <h1 className="text-5xl text-gray-400 mb-16">{"Let's play!"}</h1>
+        <h1
+          className={['text-5xl text-gray-400 mb-16', styles.title].join(' ')}
+        >
+          <div data-text="Let's play!">{"Let's play!"}</div>
+        </h1>
 
         <label htmlFor="username" className="text-gray-400 mb-5">
           Tell us your name:{' '}
