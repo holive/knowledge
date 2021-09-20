@@ -48,7 +48,7 @@ export const UseResult = (): Model => {
     const loadHistoryFromLocalStorageIfStoreIsEmpty = (): void => {
       if (resultsHistory.length) return
       const storageHistory: ResultHistoryState[] = JSON.parse(
-        localStorage.getItem('resultsHistory') ?? ''
+        localStorage.getItem('resultsHistory') ?? '{}'
       )
 
       if (Array.isArray(storageHistory) && storageHistory.length) {

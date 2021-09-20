@@ -47,7 +47,7 @@ export const History = ({
           </tr>
         </thead>
 
-        <tbody>
+        <tbody data-testid="table-body">
           <ScoreEntries
             currentRoundDifficulty={currentRoundDifficulty}
             entries={localResultHistory}

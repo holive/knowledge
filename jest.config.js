@@ -1,3 +1,6 @@
+const { pathsToModuleNameMapper } = require('ts-jest/utils')
+const { compilerOptions } = require('./tsconfig')
+
 module.exports = {
   roots: ['<rootDir>/src'],
   collectCoverageFrom: [
@@ -10,7 +13,11 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   testEnvironment: 'jsdom',
   transform: {
-    '.+\\.(ts|tsx)$': 'ts-jest'
+    '.+\\.(ts|tsx|js|jsx)$': 'ts-jest'
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/']
+  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+  modulePaths: [compilerOptions.baseUrl],
+  moduleNameMapper: pathsToModuleNameMapper({
+    '/*': ['*']
+  })
 }

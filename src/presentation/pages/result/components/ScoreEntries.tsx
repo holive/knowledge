@@ -26,10 +26,10 @@ export const ScoreEntries = ({
     <>
       {newEntries.filter(filterResults).map((item, i) => (
         <tr key={i} className={`border-gray-400 ${i && 'border-t'}`}>
-          <td>{item.name}</td>
-          <td>{formatDate(item.date)}</td>
+          <td data-testid={`history-${i}-name`}>{item.name}</td>
+          <td data-testid={`history-${i}-date`}>{formatDate(item.date)}</td>
           {!currentRoundDifficulty && <td>{item.level}</td>}
-          <td>{item.score}%</td>
+          <td data-testid={`history-${i}-score`}>{item.score}%</td>
         </tr>
       ))}
     </>

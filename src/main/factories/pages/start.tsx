@@ -1,4 +1,5 @@
-import { Loading, Start } from 'presentation/pages'
+import { Start } from 'presentation/pages'
+import { Loading } from 'presentation/pages/components'
 import React from 'react'
 import { useFetchQuestionsQuery } from 'services'
 import {

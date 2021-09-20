@@ -24,16 +24,34 @@ export const Summary = ({
   return (
     <>
       <h1 className="text-5xl text-gray-400 mb-10">
-        Here is your score, {name ?? 'player'}:
+        Here is your score,{' '}
+        <span data-testid="username">{name ?? 'player'}</span>:
       </h1>
 
       <div className="text-lg text-gray-400 mb-10">
-        <p>Correct: {correctAnswers}</p>
-        <p>Wrong: {currentRoundResults.length - correctAnswers}</p>
-        <p>Questions Answered: {currentRoundResults.length}</p>
-        <p>Final Score: {successRate}%</p>
         <p>
-          Level: <span className="capitalize">{currentRoundDifficulty}</span>
+          Correct: <span data-testid="correct-answers">{correctAnswers}</span>
+        </p>
+        <p>
+          Wrong:{' '}
+          <span data-testid="wrong-answers">
+            {currentRoundResults.length - correctAnswers}
+          </span>
+        </p>
+        <p>
+          Questions Answered:{' '}
+          <span data-testid="questions-answered">
+            {currentRoundResults.length}
+          </span>
+        </p>
+        <p>
+          Final Score: <span data-testid="final-score">{successRate}%</span>
+        </p>
+        <p>
+          Level:{' '}
+          <span className="capitalize" data-testid="level">
+            {currentRoundDifficulty}
+          </span>
         </p>
       </div>
     </>
