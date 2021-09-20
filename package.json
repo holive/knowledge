@@ -5,13 +5,15 @@
   "main": "src/index.js",
   "scripts": {
     "start:server": "node ./server/server.js",
-    "start:client": "react-scripts start",
+    "start:client": "craco start",
     "start": "concurrently npm:start:client npm:start:server",
-    "build": "react-scripts build",
+    "build": "craco build",
     "test": "jest --passWithNoTests --no-cache"
   },
   "dependencies": {
+    "@craco/craco": "^6.3.0",
     "@reduxjs/toolkit": "^1.6.1",
+    "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -33,6 +35,7 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "autoprefixer": "^9.8.6",
     "concurrently": "^5.0.0",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
@@ -48,8 +51,10 @@
     "git-commit-msg-linter": "^3.2.8",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "postcss": "^7.0.36",
     "react-scripts": "^4.0.3",
     "sass": "^1.41.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
     "ts-jest": "26.5.6",
     "typescript": "^4.4.2"
   },

@@ -16,10 +16,10 @@ export const History = ({
 }: Params): JSX.Element => {
   return (
     <>
-      <h2>Game history</h2>
+      <h2 className="text-3xl text-gray-400 mb-4">Game History</h2>
 
-      <table>
-        <thead>
+      <table className="text-gray-400 border-gray-400 border mb-8">
+        <thead className="border-gray-400 border-b">
           <tr>
             <th>Player</th>
             <th>Time</th>

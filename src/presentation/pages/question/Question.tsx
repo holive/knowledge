@@ -17,18 +17,19 @@ export const Question = (): JSX.Element => {
   if (question === null) return <Loading />
 
   return (
-    <div>
-      <h1>{question.title}</h1>
-      <small>{question.subtitle}</small>
-      <br />
-      <br />
+    <div className="min-h-screen bg-gray-800 font-mono">
+      <div className="container mx-auto py-16 flex flex-col text-center">
+        <h2 className="text-3xl text-gray-400 mb-4">{question.title}</h2>
 
-      <Sections
-        type={question.type}
-        correctAnswer={question.correctAnswer}
-        incorrectAnswers={question.incorrectAnswers}
-        incrementQuestionsAnswered={question.setQuestionsAnswered}
-      />
+        <p className="text-gray-400 mb-5 mb-4">[{question.subtitle}]</p>
+
+        <Sections
+          type={question.type}
+          correctAnswer={question.correctAnswer}
+          incorrectAnswers={question.incorrectAnswers}
+          incrementQuestionsAnswered={question.setQuestionsAnswered}
+        />
+      </div>
     </div>
   )
 }

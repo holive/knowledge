@@ -25,7 +25,7 @@ export const ScoreEntries = ({
   return (
     <>
       {newEntries.filter(filterResults).map((item, i) => (
-        <tr key={i}>
+        <tr key={i} className={`border-gray-400 ${i && 'border-t'}`}>
           <td>{item.name}</td>
           <td>{formatDate(item.date)}</td>
           {!currentRoundDifficulty && <td>{item.level}</td>}

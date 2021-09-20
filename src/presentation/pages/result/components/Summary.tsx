@@ -23,18 +23,19 @@ export const Summary = ({
 
   return (
     <>
-      <h1>Here is your score, {name ?? 'player'}:</h1>
+      <h1 className="text-5xl text-gray-400 mb-10">
+        Here is your score, {name ?? 'player'}:
+      </h1>
 
-      <p>Correct: {correctAnswers}</p>
-      <p>Wrong: {currentRoundResults.length - correctAnswers}</p>
-      <p>Questions Answered: {currentRoundResults.length}</p>
-      <p>Final Score: {successRate}%</p>
-      <p>
-        Level:{' '}
-        <span style={{ textTransform: 'capitalize' }}>
-          {currentRoundDifficulty}
-        </span>
-      </p>
+      <div className="text-lg text-gray-400 mb-10">
+        <p>Correct: {correctAnswers}</p>
+        <p>Wrong: {currentRoundResults.length - correctAnswers}</p>
+        <p>Questions Answered: {currentRoundResults.length}</p>
+        <p>Final Score: {successRate}%</p>
+        <p>
+          Level: <span className="capitalize">{currentRoundDifficulty}</span>
+        </p>
+      </div>
     </>
   )
 }

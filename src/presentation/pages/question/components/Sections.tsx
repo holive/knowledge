@@ -19,7 +19,11 @@ export const Sections = (props: QuestionSectionParams): JSX.Element => {
       callback?.()
     }
 
-    return <button onClick={goToTheNextQuestion}>Next</button>
+    return (
+      <button onClick={goToTheNextQuestion} className="btn">
+        Next
+      </button>
+    )
   }
 
   const args: AnswersParams = {

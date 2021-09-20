@@ -19,6 +19,7 @@ export const TextType = (Props: AnswersParams): JSX.Element => {
           name="choice"
           value={answer}
           onChange={handleChange}
+          className="form-input bg-gray-700 text-gray-400"
         />
       </div>
 

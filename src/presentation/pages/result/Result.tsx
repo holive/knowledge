@@ -17,23 +17,31 @@ export const Result: React.FC = () => {
   } = UseResult()
 
   return (
-    <div>
-      <Summary
-        currentRoundDifficulty={currentRoundDifficulty}
-        currentRoundResults={currentRoundResults}
-        name={name}
-        correctAnswers={correctAnswers}
-        successRate={successRate}
-      />
+    <div className="min-h-screen bg-gray-800 font-mono">
+      <div className="container mx-auto py-16 flex flex-col text-center">
+        <Summary
+          currentRoundDifficulty={currentRoundDifficulty}
+          currentRoundResults={currentRoundResults}
+          name={name}
+          correctAnswers={correctAnswers}
+          successRate={successRate}
+        />
 
-      <History
-        resultsHistory={resultsHistory}
-        currentRoundDifficulty={currentRoundDifficulty}
-        difficulties={difficulties}
-      />
+        <History
+          resultsHistory={resultsHistory}
+          currentRoundDifficulty={currentRoundDifficulty}
+          difficulties={difficulties}
+        />
 
-      <button onClick={handleRestartQuiz}>Restart Quiz</button>
-      <button onClick={handleChangeLevel}>Change Level</button>
+        <div className="flex justify-center">
+          <button onClick={handleRestartQuiz} className="btn border-r-0">
+            Restart Quiz
+          </button>
+          <button onClick={handleChangeLevel} className="btn">
+            Change Level
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
